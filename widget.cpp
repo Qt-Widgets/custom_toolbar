@@ -12,6 +12,7 @@ Widget::Widget(QWidget *parent) :
 
     toolBarTab = new QTabBar(this);
     layout1->addWidget(toolBarTab);
+    addTabStuff();
 
     textStuff = new QLabel(this);
     textStuff->setText("This really rocks");
@@ -19,7 +20,19 @@ Widget::Widget(QWidget *parent) :
     setLayout(layout1);
 }
 
+void Widget::addTabStuff()
+{
+    toolBarTab->addTab("CPU Profiling");
+    toolBarTab->addTab("Memory Profiling");
+    connect(toolBarTab, SIGNAL(currentChanged(int)), this, SLOT(tabChange(int)));
+}
+
 Widget::~Widget()
 {
     delete ui;
+}
+
+void Widget::tabChange(int index)
+{
+    qDebug() << "Tab index changed to : " << index;
 }
