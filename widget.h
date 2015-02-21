@@ -7,6 +7,7 @@
 #include <QTabBar>
 #include <QLabel>
 #include <QDebug>
+#include "customtoolbar.h"
 
 namespace Ui {
 class Widget;
@@ -25,9 +26,7 @@ private:
     Ui::Widget *ui;
     QVBoxLayout *layout1;
     QLabel *textStuff;
-    QTabBar *toolBarTab;
-public slots:
-    void tabChange(int index);
+    CustomToolBar *customToolBar;
 };
 
 #endif // WIDGET_H

@@ -9,30 +9,18 @@ Widget::Widget(QWidget *parent) :
     ui->setupUi(this);
 
     layout1 = new QVBoxLayout();
-
-    toolBarTab = new QTabBar(this);
-    layout1->addWidget(toolBarTab);
-    addTabStuff();
+    customToolBar = new CustomToolBar(this);
+    customToolBar->setObjectName("customToolBar");
+    layout1->addWidget(customToolBar);
 
     textStuff = new QLabel(this);
     textStuff->setText("This really rocks");
     layout1->addWidget(textStuff);
+    layout1->setMargin(0);
     setLayout(layout1);
-}
-
-void Widget::addTabStuff()
-{
-    toolBarTab->addTab("CPU Profiling");
-    toolBarTab->addTab("Memory Profiling");
-    connect(toolBarTab, SIGNAL(currentChanged(int)), this, SLOT(tabChange(int)));
 }
 
 Widget::~Widget()
 {
     delete ui;
-}
-
-void Widget::tabChange(int index)
-{
-    qDebug() << "Tab index changed to : " << index;
 }

@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Compare-16.png</file>
+        <file>Compare-32.png</file>
+        <file>Compare-48.png</file>
+        <file>connect-32.png</file>
+        <file>connect-48.png</file>
+        <file>connect-128.png</file>
+        <file>disconnect-32.png</file>
+        <file>disconnect-48.png</file>
+        <file>disconnect-128.png</file>
+        <file>rbkitlogo-128.png</file>
+        <file>snapshot-32.png</file>
+        <file>snapshot-48.png</file>
+        <file>snapshot-128.png</file>
+        <file>startgc-32.png</file>
+        <file>startgc-48.png</file>
+        <file>startgc-128.png</file>
+        <file>style.qss</file>
+    </qresource>
+</RCC>

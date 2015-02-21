@@ -1,0 +1,66 @@
+QPushButton {
+  border-radius: 4px;
+  border: 1px solid #e7e7e7;
+  background-color: #fafafa;
+  padding: 3px;
+  margin-top: 0;
+  height: 30px;
+}
+
+QPushButton:hover {
+  background-color: #EFEFEF;
+}
+
+QPushButton:pressed {
+  background-color: #e7e7e7;
+  border-style: inset;
+}
+
+#customToolBar {
+  background-color: #fafafa;
+}
+
+#actionHolder {
+  padding-top: -3px;
+  background-color: #fafafa;
+}
+
+QTabBar {
+  background-color: #fafafa;
+  font-size: 10px;
+  border: none;
+  padding-bottom: 0;
+  margin-bottom: 0px;
+}
+
+QVBoxLayout {
+  background-color: red;
+}
+
+QHBoxLayout {
+  background-color: red;
+}
+
+
+ /* Style the tab using the tab sub-control. Note that
+     it reads QTabBar _not_ QTabWidget */
+ QTabBar::tab {
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                 stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
+                                 stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
+     min-width: 8ex;
+ }
+
+ QTabBar::tab:selected, QTabBar::tab:hover {
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                 stop: 0 #fafafa, stop: 0.4 #f4f4f4,
+                                 stop: 0.5 #e7e7e7, stop: 1.0 #fafafa);
+ }
+
+ QTabBar::tab:selected {
+     border-color: #9B9B9B;
+     border-bottom-color: #C2C7CB; /* same as pane color */
+ }
+
+ QTabBar::tab:!selected {
+ }

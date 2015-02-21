@@ -20,3 +20,8 @@ HEADERS  += widget.h \
     customtoolbar.h
 
 FORMS    += widget.ui
+
+RESOURCES += \
+    icons.qrc
+
+DISTFILES +=
