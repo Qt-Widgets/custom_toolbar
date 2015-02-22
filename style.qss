@@ -1,9 +1,7 @@
 QPushButton {
   border: none;
   background-color: #fafafa;
-  margin-top: 3px;
-  padding: 1px;
-  height: 28px;
+  padding: 2px;
 }
 
 QPushButton:hover {
@@ -38,8 +36,7 @@ QPushButton:pressed {
 }
 
 #actionHolder {
-  padding-top: 4px;
-  background-color: #fafafa;
+  background: #fafafa;
 }
 
 #action_toolbar{
