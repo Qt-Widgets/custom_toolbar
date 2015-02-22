@@ -16,8 +16,8 @@ Widget::Widget(QWidget *parent) :
     layout1->addWidget(customToolBar, 0, Qt::AlignTop);
 
     QTabBar *tabBar = new QTabBar(this);
-    tabBar->addTab("Emacs");
-    tabBar->addTab("Other stuff");
+    tabBar->addTab("Object Graph");
+    tabBar->addTab("Snapshot #1");
     tabBar->setObjectName("another_tab");
     tabBar->setMinimumHeight(300);
     layout1->addWidget(tabBar, 0, Qt::AlignTop);
