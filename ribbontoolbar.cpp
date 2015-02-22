@@ -19,6 +19,7 @@ void RibbonToolBar::insertRibbonWidget()
 
     layout1 = new QVBoxLayout(this);
     tabBar = new QTabBar(this);
+    // give a name to the TabBar to be used from CSS
     tabBar->setObjectName("action_tabbar");
     tabBar->setMaximumHeight(20);
     tabBar->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
@@ -31,6 +32,7 @@ void RibbonToolBar::insertRibbonWidget()
 
 RibbonToolBar::RibbonToolBar(QWidget *parent) : QWidget(parent)
 {
+    // give a name to the entire widget to be used from css
     setObjectName("ribbon_toolbar");
     setMaximumHeight(48);
 
