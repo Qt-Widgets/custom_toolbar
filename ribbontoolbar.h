@@ -6,15 +6,14 @@
 #include <QVector>
 #include <QSharedPointer>
 #include <QAbstractButton>
+#include <QHash>
 
 class QIcon;
 class QHBoxLayout;
 class QVBoxLayout;
 class QTabBar;
 class QToolButton;
-class QPushButton;
-
-typedef QSharedPointer<QAbstractButton> Btnptr;
+class QBoxLayout;
 
 class RibbonToolBar : public QWidget
 {
@@ -22,7 +21,11 @@ class RibbonToolBar : public QWidget
 
     QHBoxLayout *layout0;
     QVBoxLayout *layout1;
-    QVector<Btnptr> actionList;
+    QHash<QString, QToolButton *> toolBarButtons;
+    QHash<QString, QWidget *> containerWidgets;
+    QWidget *ribbonUiWidget;
+    void insertRibbonWidget();
+    QTabBar *tabBar;
 public:
     explicit RibbonToolBar(QWidget *parent = 0);
     ~RibbonToolBar();
@@ -34,6 +37,7 @@ public:
 signals:
 
 public slots:
+    void tabSelectionChanged(int index);
 };
 
 
