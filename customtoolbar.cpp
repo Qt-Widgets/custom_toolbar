@@ -17,6 +17,7 @@ CustomToolBar::CustomToolBar(QWidget *parent)
     setMaximumHeight(60);
     layout1 = new QVBoxLayout(this);
     tabBar = new QTabBar(this);
+    tabBar->setObjectName("action_toolbar");
     tabBar->addTab("CPU Profiling");
     tabBar->addTab("Memory Profiling");
     tabBar->setMaximumHeight(30);
@@ -24,7 +25,7 @@ CustomToolBar::CustomToolBar(QWidget *parent)
     layout1->addWidget(tabBar, 0, Qt::AlignTop);
 
     actionHolder = new QWidget(this);
-    actionHolder->setMinimumHeight(30);
+    actionHolder->setMinimumHeight(28);
     actionHolder->setObjectName("actionHolder");
     layout1->addWidget(actionHolder, 0, Qt::AlignTop);
     populateActions();
@@ -44,12 +45,12 @@ void CustomToolBar::populateActions()
     actionLayout = new QHBoxLayout();
     QPushButton *button1 = new QPushButton(*icons.at(0).data(), "Start GC", this);
     QPushButton *button2 = new QPushButton(*icons.at(1).data(), "Take snapshot", this);
-    QSpacerItem *spacer = new QSpacerItem(100, 30, QSizePolicy::MinimumExpanding);
+    QSpacerItem *spacer = new QSpacerItem(100, 28, QSizePolicy::MinimumExpanding);
     actionLayout->addWidget(button1,0, Qt::AlignTop);
     actionLayout->addWidget(button2,0, Qt::AlignTop);
     actionLayout->addSpacerItem(spacer);
     actionLayout->setMargin(0);
-    actionLayout->setContentsMargins(0,-10,0,0);
+    actionLayout->setContentsMargins(-1,0,-1,-1);
     actionHolder->setLayout(actionLayout);
 }
 
