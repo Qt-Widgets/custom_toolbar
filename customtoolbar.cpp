@@ -16,20 +16,21 @@ CustomToolBar::CustomToolBar(QWidget *parent)
     icons.push_back(QSharedPointer<QIcon>(new QIcon(":/connect-32.png")));
 
     loadStyleSheet();
-    setMaximumHeight(60);
+    setMaximumHeight(43);
     layout0 = new QHBoxLayout(this);
     QToolButton *connectButton = new QToolButton(this);
     connectButton->setObjectName("tool_button");
     connectButton->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     connectButton->setIcon(*icons.at(2).data());
     connectButton->setText("Connect");
-    connectButton->setMinimumHeight(48);
-    layout0->addWidget(connectButton, 0, Qt::AlignLeft | Qt::AlignBottom);
+    connectButton->setMinimumHeight(43);
+    layout0->addWidget(connectButton, 0, Qt::AlignLeft | Qt::AlignTop);
 
     subTabHolder = new QWidget(this);
     subTabHolder->setMinimumWidth(600);
     subTabHolder->setObjectName("subtab_holder");
-    layout0->addWidget(subTabHolder, 0, Qt::AlignLeft | Qt::AlignTop);
+    subTabHolder->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    layout0->addWidget(subTabHolder, 0, 0);
 
     layout1 = new QVBoxLayout(this);
     tabBar = new QTabBar(this);
@@ -37,13 +38,14 @@ CustomToolBar::CustomToolBar(QWidget *parent)
     tabBar->addTab("CPU Profiling");
     tabBar->addTab("Memory Profiling");
     tabBar->setMaximumHeight(30);
+    tabBar->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
     connect(tabBar, SIGNAL(currentChanged(int)), this, SLOT(customTabChanged(int)));
     layout1->addWidget(tabBar, 0, Qt::AlignTop);
 
     actionHolder = new QWidget(this);
     actionHolder->setMinimumHeight(28);
     actionHolder->setObjectName("actionHolder");
-    layout1->addWidget(actionHolder, 0, Qt::AlignTop);
+    layout1->addWidget(actionHolder);
     populateActions();
     layout1->setMargin(0);
     layout1->setSpacing(0);
@@ -67,8 +69,8 @@ void CustomToolBar::populateActions()
     QPushButton *button1 = new QPushButton(*icons.at(0).data(), "Start GC", this);
     QPushButton *button2 = new QPushButton(*icons.at(1).data(), "Take snapshot", this);
     QSpacerItem *spacer = new QSpacerItem(100, 28, QSizePolicy::MinimumExpanding);
-    actionLayout->addWidget(button1,0, Qt::AlignTop);
-    actionLayout->addWidget(button2,0, Qt::AlignTop);
+    actionLayout->addWidget(button1,0, Qt::AlignBottom);
+    actionLayout->addWidget(button2,0, Qt::AlignBottom);
     actionLayout->addSpacerItem(spacer);
     actionLayout->setMargin(0);
     actionLayout->setContentsMargins(-1,0,-1,-1);

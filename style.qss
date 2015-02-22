@@ -1,7 +1,8 @@
 QPushButton {
   border: none;
   background-color: #fafafa;
-  margin-top: 0;
+  margin-top: 3px;
+  padding: 1px;
   height: 28px;
 }
 
@@ -37,7 +38,7 @@ QPushButton:pressed {
 }
 
 #actionHolder {
-  padding-top: -3px;
+  padding-top: 4px;
   background-color: #fafafa;
 }
 
@@ -66,18 +67,21 @@ QHBoxLayout {
      it reads QTabBar _not_ QTabWidget */
  QTabBar::tab#action_toolbar {
     background: #d3d3d3;
-     min-width: 8ex;
-     border: 1px solid #ffffff;
-     padding: 1px;
- }
-
- QTabBar::tab:selected#action_toolbar, QTabBar::tab:hover#action_toolbar {
-   background: #fafafa;
+     min-width: 12ex;
+     border: 1px solid #f6f6f6;
+     padding-left: 30px;
+     padding-right: 30px;
+     padding-top: 1px;
+     padding-bottom: 1px;
  }
 
  QTabBar::tab:selected#action_toolbar {
+   background: #fafafa;
    border: none;
  }
 
- QTabBar::tab:!selected {
- }
+QTabBar::tab:hover#action_toolbar {
+  background: #e3e3e3;
+}
+
+
