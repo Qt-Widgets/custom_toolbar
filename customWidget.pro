@@ -14,10 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         widget.cpp \
-    customtoolbar.cpp
+    customtoolbar.cpp \
+    ribbontoolbar.cpp
 
 HEADERS  += widget.h \
-    customtoolbar.h
+    customtoolbar.h \
+    ribbontoolbar.h
 
 FORMS    += widget.ui
 

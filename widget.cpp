@@ -12,7 +12,6 @@ Widget::Widget(QWidget *parent) :
 
     layout1 = new QVBoxLayout();
     customToolBar = new CustomToolBar(this);
-    customToolBar->setObjectName("customToolBar");
     layout1->setMenuBar(customToolBar);
 
     QTabBar *tabBar = new QTabBar(this);

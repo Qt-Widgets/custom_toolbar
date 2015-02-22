@@ -9,12 +9,7 @@
 CustomToolBar::CustomToolBar(QWidget *parent)
     :QWidget(parent)
 {
-    Q_INIT_RESOURCE(icons);
-    IconPtr icon = QSharedPointer<QIcon>(new QIcon(":/startgc-32.png"));
-    icons.push_back(icon);
-    icons.push_back(QSharedPointer<QIcon>(new QIcon(":/snapshot-32.png")));
-    icons.push_back(QSharedPointer<QIcon>(new QIcon(":/connect-32.png")));
-
+    setObjectName("ribbon_toolbar");
     loadStyleSheet();
     setMaximumHeight(48);
     layout0 = new QHBoxLayout(this);
