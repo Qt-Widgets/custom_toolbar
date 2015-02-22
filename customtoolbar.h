@@ -26,10 +26,12 @@ public:
 private:
     QTabBar *tabBar;
     QVBoxLayout *layout1;
+    QHBoxLayout *layout0;
     QWidget *actionHolder;
     QHBoxLayout *actionLayout;
     QVector<WidgetPtr> actionList;
     QVector<IconPtr> icons;
+    QWidget *subTabHolder;
 public slots:
     void customTabChanged(int tabIndex);
 };

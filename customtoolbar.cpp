@@ -4,6 +4,7 @@
 #include <QApplication>
 #include <QFile>
 #include <QSpacerItem>
+#include <QToolButton>
 
 CustomToolBar::CustomToolBar(QWidget *parent)
     :QWidget(parent)
@@ -12,9 +13,24 @@ CustomToolBar::CustomToolBar(QWidget *parent)
     IconPtr icon = QSharedPointer<QIcon>(new QIcon(":/startgc-32.png"));
     icons.push_back(icon);
     icons.push_back(QSharedPointer<QIcon>(new QIcon(":/snapshot-32.png")));
+    icons.push_back(QSharedPointer<QIcon>(new QIcon(":/connect-32.png")));
 
     loadStyleSheet();
     setMaximumHeight(60);
+    layout0 = new QHBoxLayout(this);
+    QToolButton *connectButton = new QToolButton(this);
+    connectButton->setObjectName("tool_button");
+    connectButton->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    connectButton->setIcon(*icons.at(2).data());
+    connectButton->setText("Connect");
+    connectButton->setMinimumHeight(48);
+    layout0->addWidget(connectButton, 0, Qt::AlignLeft | Qt::AlignBottom);
+
+    subTabHolder = new QWidget(this);
+    subTabHolder->setMinimumWidth(600);
+    subTabHolder->setObjectName("subtab_holder");
+    layout0->addWidget(subTabHolder, 0, Qt::AlignLeft | Qt::AlignTop);
+
     layout1 = new QVBoxLayout(this);
     tabBar = new QTabBar(this);
     tabBar->setObjectName("action_toolbar");
@@ -32,7 +48,12 @@ CustomToolBar::CustomToolBar(QWidget *parent)
     layout1->setMargin(0);
     layout1->setSpacing(0);
     layout1->setContentsMargins(0,0,0,0);
-    setLayout(layout1);
+    subTabHolder->setLayout(layout1);
+
+    layout0->setMargin(0);
+    layout0->setSpacing(0);
+    layout0->setContentsMargins(0, 0, 0, 0);
+    setLayout(layout0);
 }
 
 CustomToolBar::~CustomToolBar()
