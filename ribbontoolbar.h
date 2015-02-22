@@ -3,15 +3,26 @@
 
 #include <QWidget>
 #include <QString>
+#include <QVector>
+#include <QSharedPointer>
+#include <QAbstractButton>
 
 class QIcon;
 class QHBoxLayout;
 class QVBoxLayout;
 class QTabBar;
+class QToolButton;
+class QPushButton;
+
+typedef QSharedPointer<QAbstractButton> Btnptr;
 
 class RibbonToolBar : public QWidget
 {
     Q_OBJECT
+
+    QHBoxLayout *layout0;
+    QVBoxLayout *layout1;
+    QVector<Btnptr> actionList;
 public:
     explicit RibbonToolBar(QWidget *parent = 0);
     ~RibbonToolBar();
@@ -25,4 +36,6 @@ signals:
 public slots:
 };
 
+
+void makeMarginSpacingZero(QBoxLayout *layout);
 #endif // RIBBONTOOLBAR_H
