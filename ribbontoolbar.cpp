@@ -8,6 +8,7 @@
 #include <QIcon>
 #include <QSpacerItem>
 #include <QFile>
+#include <QDebug>
 
 void RibbonToolBar::insertRibbonWidget()
 {
@@ -30,7 +31,7 @@ void RibbonToolBar::insertRibbonWidget()
     ribbonUiWidget->setLayout(layout1);
 }
 
-RibbonToolBar::RibbonToolBar(QWidget *parent) : QWidget(parent)
+RibbonToolBar::RibbonToolBar(QWidget *parent) : QWidget(parent), tabIndexes(0)
 {
     // give a name to the entire widget to be used from css
     setObjectName("ribbon_toolbar");
@@ -84,16 +85,18 @@ void RibbonToolBar::addRibbonTab(const QString &tabName,
     makeMarginSpacingZero(actionLayout);
     actionHolder->setLayout(actionLayout);
 
-    containerWidgets[tabIdentifier] = actionHolder;
+    containerWidgets[tabIdentifier] = TabContainerWidget({actionHolder, tabIndexes});
+    tabIndexes++;
 }
 
 // this adds an action to one of the tabs
 void RibbonToolBar::addRibbonAction(const QString &actionName,
                                     const QString &actionIdentifier,
-                                    const QString &tabIdentifier,
-                                    const QIcon &icon)
+                                    const QIcon &icon,
+                                    const QString &tabIdentifier)
 {
-    QWidget *actionHolder = containerWidgets[tabIdentifier];
+    TabContainerWidget containerData = containerWidgets[tabIdentifier];
+    QWidget *actionHolder = containerData.widget;
     QToolButton *actionButton = new QToolButton(this);
     actionButton->setObjectName(actionIdentifier);
     actionButton->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
@@ -105,7 +108,15 @@ void RibbonToolBar::addRibbonAction(const QString &actionName,
 
 void RibbonToolBar::tabSelectionChanged(int index)
 {
-
+    for(TabContainerWidget containerData : containerWidgets) {
+        if (containerData.index == index) {
+            qDebug() << "+ Showing container with index " << index;
+            containerData.widget->show();
+        } else {
+            qDebug() << "- Hiding container with index " << index;
+            containerData.widget->hide();
+        }
+    }
 }
 
 void makeMarginSpacingZero(QBoxLayout *layout) {

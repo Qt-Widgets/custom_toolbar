@@ -25,5 +25,6 @@ FORMS    += widget.ui
 
 RESOURCES += \
     icons.qrc
+CONFIG += c++11
 
 DISTFILES +=

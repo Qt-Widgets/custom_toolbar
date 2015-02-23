@@ -8,6 +8,7 @@
 #include <QLabel>
 #include <QDebug>
 #include "customtoolbar.h"
+#include "ribbontoolbar.h"
 
 namespace Ui {
 class Widget;
@@ -20,6 +21,7 @@ class Widget : public QWidget
 public:
     explicit Widget(QWidget *parent = 0);
     void addTabStuff();
+    void oldLayoutCode();
     ~Widget();
 
 private:
@@ -27,6 +29,7 @@ private:
     QVBoxLayout *layout1;
     QLabel *textStuff;
     CustomToolBar *customToolBar;
+    RibbonToolBar *ribbonToolBar;
 };
 
 #endif // WIDGET_H

@@ -15,6 +15,11 @@ class QTabBar;
 class QToolButton;
 class QBoxLayout;
 
+typedef struct TabContainerWidget {
+    QWidget *widget;
+    int index;
+} TabContainerWidget;
+
 class RibbonToolBar : public QWidget
 {
     Q_OBJECT
@@ -22,10 +27,11 @@ class RibbonToolBar : public QWidget
     QHBoxLayout *layout0;
     QVBoxLayout *layout1;
     QHash<QString, QToolButton *> toolBarButtons;
-    QHash<QString, QWidget *> containerWidgets;
+    QHash<QString, TabContainerWidget> containerWidgets;
     QWidget *ribbonUiWidget;
     void insertRibbonWidget();
     QTabBar *tabBar;
+    int tabIndexes;
 public:
     explicit RibbonToolBar(QWidget *parent = 0);
     ~RibbonToolBar();
@@ -33,7 +39,7 @@ public:
     void addRibbonAction(const QString &actionName, const QString &actionIdentifier, const QIcon &icon);
     void addRibbonTab(const QString &tabName, const QString &tabIdentifier);
     void addRibbonAction(const QString &actionName, const QString &actionIdentifier,
-                         const QString &tabIdentifier, const QIcon &icon);
+                         const QIcon &icon, const QString &tabIdentifier);
 signals:
 
 public slots:
