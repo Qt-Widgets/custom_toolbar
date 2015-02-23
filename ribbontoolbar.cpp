@@ -22,7 +22,7 @@ void RibbonToolBar::insertRibbonWidget()
     tabBar = new QTabBar(this);
     // give a name to the TabBar to be used from CSS
     tabBar->setObjectName("action_tabbar");
-    tabBar->setMaximumHeight(32);
+    tabBar->setMaximumHeight(20);
     tabBar->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
     connect(tabBar, &QTabBar::currentChanged, this, &RibbonToolBar::tabSelectionChanged);
     layout1->addWidget(tabBar, 0, Qt::AlignTop);
@@ -35,7 +35,7 @@ RibbonToolBar::RibbonToolBar(QWidget *parent) : QWidget(parent), tabIndexes(0)
 {
     // give a name to the entire widget to be used from css
     setObjectName("ribbon_toolbar");
-    setMaximumHeight(64);
+    setMaximumHeight(48);
 
     layout0 = new QHBoxLayout(this);
     insertRibbonWidget();
@@ -68,7 +68,7 @@ const QToolButton *RibbonToolBar::addRibbonAction(const QString &actionName,
     actionButton->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     actionButton->setIcon(icon);
     actionButton->setText(actionName);
-    actionButton->setMinimumHeight(64);
+    actionButton->setMinimumHeight(48);
     toolBarButtons[actionIdentifier] = actionButton;
     layout0->insertWidget(0, actionButton, 0, Qt::AlignLeft | Qt::AlignTop);
     return actionButton;

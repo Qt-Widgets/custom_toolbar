@@ -6,8 +6,23 @@
   border: none;
 }
 
+#start_gc {
+  padding: 3px;
+}
+
 #ribbon_tab_container {
   background: #fafafa;
+}
+
+#ribbon_tab_container QToolButton {
+  padding: 2px;
+}
+
+#ribbon_tab_container QToolButton:hover {
+  background: #CCCCCC;
+}
+#ribbon_tab_container QToolButton:pressed {
+  background: #b4b4b4;
 }
 
  /* Style the tab using the tab sub-control. Note that
