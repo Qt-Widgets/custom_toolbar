@@ -30,6 +30,8 @@ private:
     QLabel *textStuff;
     CustomToolBar *customToolBar;
     RibbonToolBar *ribbonToolBar;
+public slots:
+    void startGcClicked();
 };
 
 #endif // WIDGET_H

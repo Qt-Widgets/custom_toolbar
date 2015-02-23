@@ -17,5 +17,6 @@
         <file>startgc-48.png</file>
         <file>startgc-128.png</file>
         <file>style.qss</file>
+        <file>foo.qss</file>
     </qresource>
 </RCC>

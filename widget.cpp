@@ -2,6 +2,7 @@
 #include "ui_widget.h"
 #include <QTabWidget>
 #include <QTabBar>
+#include <QToolButton>
 
 
 Widget::Widget(QWidget *parent) :
@@ -17,11 +18,13 @@ Widget::Widget(QWidget *parent) :
     ribbonToolBar->addRibbonTab("CPU Profiling", "cpu_profiling");
     ribbonToolBar->addRibbonTab("Memory Profiling", "memory_profiling");
 
-    ribbonToolBar->addRibbonAction("Start GC", "start_gc", QIcon(":/startgc-32.png"), "memory_profiling");
+    const QToolButton *btn = ribbonToolBar->addRibbonAction("Start GC", "start_gc", QIcon(":/startgc-32.png"), "memory_profiling");
+    connect(btn, &QToolButton::clicked, this, &Widget::startGcClicked);
     ribbonToolBar->addRibbonAction("Take Snapshot", "take_snapshot", QIcon(":/snapshot-32.png"), "memory_profiling");
 
     ribbonToolBar->addRibbonAction("Start CPU Profiling", "start_cpu_profile", QIcon(":/disconnect-32.png"), "cpu_profiling");
     ribbonToolBar->addRibbonAction("Stop Profiling", "stop_cpu_profiling", QIcon(":/Compare-32.png"), "cpu_profiling");
+    ribbonToolBar->loadStyleSheet(":/foo.qss");
 
     layout1->setMenuBar(ribbonToolBar);
 
@@ -64,4 +67,9 @@ void Widget::oldLayoutCode()
 Widget::~Widget()
 {
     delete ui;
+}
+
+void Widget::startGcClicked()
+{
+   qDebug() << "Start GC clicked";
 }

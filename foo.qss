@@ -1,0 +1,33 @@
+#cpu_profiling {
+}
+
+#ribbon_toolbar QToolButton {
+  background: #fafafa;
+  border: none;
+}
+
+#ribbon_tab_container {
+  background: #fafafa;
+}
+
+ /* Style the tab using the tab sub-control. Note that
+     it reads QTabBar _not_ QTabWidget */
+ QTabBar::tab#action_tabbar {
+    background: #d3d3d3;
+     min-width: 12ex;
+     border: 1px solid #f6f6f6;
+     padding-left: 30px;
+     padding-right: 30px;
+     padding-top: 1px;
+     padding-bottom: 1px;
+ }
+
+QTabBar::tab:selected#action_tabbar {
+   background: #fafafa;
+   border: none;
+ }
+
+QTabBar::tab:hover#action_tabbar {
+  background: #e3e3e3;
+}
+

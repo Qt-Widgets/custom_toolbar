@@ -7,19 +7,47 @@
 #include <QSharedPointer>
 #include <QAbstractButton>
 #include <QHash>
+#include <QBoxLayout>
 
 class QIcon;
 class QHBoxLayout;
 class QVBoxLayout;
 class QTabBar;
 class QToolButton;
-class QBoxLayout;
 
-typedef struct TabContainerWidget {
+class TabContainerWidget {
+public:
+    explicit TabContainerWidget(QWidget *_widget, int _index,
+                                bool _inLayout, const QString _tabIdentifier,
+                                QBoxLayout *layout)
+        : widget(_widget), index(_index),
+          inLayout(_inLayout), tabIdentifier(_tabIdentifier),
+          containerLayout(layout) {
+
+    }
+
     QWidget *widget;
     int index;
     bool inLayout;
-} TabContainerWidget;
+    const QString tabIdentifier;
+    QBoxLayout *containerLayout;
+
+    void inline hideWidget(QBoxLayout *layout) {
+        if (inLayout) {
+            layout->removeWidget(widget);
+            this->inLayout = false;
+        }
+        widget->hide();
+    }
+
+    void inline showWidget(QBoxLayout *layout) {
+        if (!inLayout) {
+            layout->addWidget(widget);
+            this->inLayout = true;
+        }
+        widget->show();
+    }
+};
 
 class RibbonToolBar : public QWidget
 {
@@ -28,7 +56,7 @@ class RibbonToolBar : public QWidget
     QHBoxLayout *layout0;
     QVBoxLayout *layout1;
     QHash<QString, QToolButton *> toolBarButtons;
-    QHash<QString, TabContainerWidget> containerWidgets;
+    QHash<QString, TabContainerWidget *> containerWidgets;
     QWidget *ribbonUiWidget;
     void insertRibbonWidget();
     QTabBar *tabBar;
@@ -36,10 +64,10 @@ class RibbonToolBar : public QWidget
 public:
     explicit RibbonToolBar(QWidget *parent = 0);
     ~RibbonToolBar();
-    void loadStyleSheet(QString &fileName);
-    void addRibbonAction(const QString &actionName, const QString &actionIdentifier, const QIcon &icon);
+    void loadStyleSheet(const QString &fileName);
+    const QToolButton* addRibbonAction(const QString &actionName, const QString &actionIdentifier, const QIcon &icon);
     void addRibbonTab(const QString &tabName, const QString &tabIdentifier);
-    void addRibbonAction(const QString &actionName, const QString &actionIdentifier,
+    const QToolButton* addRibbonAction(const QString &actionName, const QString &actionIdentifier,
                          const QIcon &icon, const QString &tabIdentifier);
 signals:
 

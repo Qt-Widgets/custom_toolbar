@@ -14,7 +14,7 @@ void RibbonToolBar::insertRibbonWidget()
 {
     ribbonUiWidget = new QWidget(this);
     ribbonUiWidget->setMinimumWidth(600);
-    ribbonUiWidget->setObjectName("ribbon_toolbar");
+    ribbonUiWidget->setObjectName("ribbon_tab_container");
     ribbonUiWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     layout0->addWidget(ribbonUiWidget, 0, 0);
 
@@ -48,7 +48,7 @@ RibbonToolBar::~RibbonToolBar()
 
 }
 
-void RibbonToolBar::loadStyleSheet(QString &fileName)
+void RibbonToolBar::loadStyleSheet(const QString &fileName)
 {
     QFile file(fileName);
     file.open(QFile::ReadOnly);
@@ -59,7 +59,7 @@ void RibbonToolBar::loadStyleSheet(QString &fileName)
 
 
 // this adds a action to main toolbar
-void RibbonToolBar::addRibbonAction(const QString &actionName,
+const QToolButton *RibbonToolBar::addRibbonAction(const QString &actionName,
                                     const QString &actionIdentifier,
                                     const QIcon &icon)
 {
@@ -71,6 +71,7 @@ void RibbonToolBar::addRibbonAction(const QString &actionName,
     actionButton->setMinimumHeight(64);
     toolBarButtons[actionIdentifier] = actionButton;
     layout0->insertWidget(0, actionButton, 0, Qt::AlignLeft | Qt::AlignTop);
+    return actionButton;
 }
 
 void RibbonToolBar::addRibbonTab(const QString &tabName,
@@ -84,12 +85,12 @@ void RibbonToolBar::addRibbonTab(const QString &tabName,
     actionLayout->addSpacerItem(spacer);
     if (tabIndexes == 0) {
         qDebug() << "Adding " << tabName << " to a visible tab";
-        containerWidgets[tabIdentifier] = TabContainerWidget({actionHolder, tabIndexes, true});
+        containerWidgets[tabIdentifier] = new TabContainerWidget(actionHolder, tabIndexes, true, tabIdentifier, actionLayout);
         layout1->addWidget(actionHolder);
     } else {
         qDebug() << "Adding " << tabName << " to a hidden tab";
         actionHolder->hide();
-        containerWidgets[tabIdentifier] = TabContainerWidget({actionHolder, tabIndexes, false});
+        containerWidgets[tabIdentifier] = new TabContainerWidget(actionHolder, tabIndexes, false, tabIdentifier, actionLayout);
     }
     makeMarginSpacingZero(actionLayout);
     actionHolder->setLayout(actionLayout);
@@ -98,39 +99,29 @@ void RibbonToolBar::addRibbonTab(const QString &tabName,
 }
 
 // this adds an action to one of the tabs
-void RibbonToolBar::addRibbonAction(const QString &actionName,
+const QToolButton *RibbonToolBar::addRibbonAction(const QString &actionName,
                                     const QString &actionIdentifier,
                                     const QIcon &icon,
                                     const QString &tabIdentifier)
 {
-    TabContainerWidget containerData = containerWidgets[tabIdentifier];
-    QWidget *actionHolder = containerData.widget;
+    TabContainerWidget *containerData = containerWidgets[tabIdentifier];
     QToolButton *actionButton = new QToolButton(this);
     actionButton->setObjectName(actionIdentifier);
     actionButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     actionButton->setIcon(icon);
     actionButton->setText(actionName);
-    actionHolder->layout()->addWidget(actionButton);
+    containerData->containerLayout->insertWidget(0, actionButton);
     toolBarButtons[actionIdentifier] = actionButton;
+    return actionButton;
 }
 
 void RibbonToolBar::tabSelectionChanged(int index)
 {
-    for(TabContainerWidget containerData : containerWidgets) {
-        if (containerData.index == index) {
-            if (!containerData.inLayout) {
-                layout1->addWidget(containerData.widget);
-                containerData.inLayout = true;
-            }
-            qDebug() << "+ Showing container with index " << index;
-            containerData.widget->show();
+    for(TabContainerWidget *containerData : containerWidgets) {
+        if (containerData->index == index) {
+            containerData->showWidget(layout1);
         } else {
-            qDebug() << "- Hiding container with index " << index;
-            if (containerData.inLayout) {
-                layout1->removeWidget(containerData.widget);
-                containerData.inLayout = false;
-            }
-            containerData.widget->hide();
+            containerData->hideWidget(layout1);
         }
     }
 }
