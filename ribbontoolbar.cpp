@@ -22,7 +22,7 @@ void RibbonToolBar::insertRibbonWidget()
     tabBar = new QTabBar(this);
     // give a name to the TabBar to be used from CSS
     tabBar->setObjectName("action_tabbar");
-    tabBar->setMaximumHeight(20);
+    tabBar->setMaximumHeight(32);
     tabBar->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
     connect(tabBar, &QTabBar::currentChanged, this, &RibbonToolBar::tabSelectionChanged);
     layout1->addWidget(tabBar, 0, Qt::AlignTop);
@@ -35,7 +35,7 @@ RibbonToolBar::RibbonToolBar(QWidget *parent) : QWidget(parent), tabIndexes(0)
 {
     // give a name to the entire widget to be used from css
     setObjectName("ribbon_toolbar");
-    setMaximumHeight(48);
+    setMaximumHeight(64);
 
     layout0 = new QHBoxLayout(this);
     insertRibbonWidget();
@@ -68,7 +68,7 @@ void RibbonToolBar::addRibbonAction(const QString &actionName,
     actionButton->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     actionButton->setIcon(icon);
     actionButton->setText(actionName);
-    actionButton->setMinimumHeight(48);
+    actionButton->setMinimumHeight(64);
     toolBarButtons[actionIdentifier] = actionButton;
     layout0->insertWidget(0, actionButton, 0, Qt::AlignLeft | Qt::AlignTop);
 }
@@ -82,10 +82,18 @@ void RibbonToolBar::addRibbonTab(const QString &tabName,
     QHBoxLayout *actionLayout = new QHBoxLayout();
     QSpacerItem *spacer = new QSpacerItem(100, 32, QSizePolicy::MinimumExpanding);
     actionLayout->addSpacerItem(spacer);
+    if (tabIndexes == 0) {
+        qDebug() << "Adding " << tabName << " to a visible tab";
+        containerWidgets[tabIdentifier] = TabContainerWidget({actionHolder, tabIndexes, true});
+        layout1->addWidget(actionHolder);
+    } else {
+        qDebug() << "Adding " << tabName << " to a hidden tab";
+        actionHolder->hide();
+        containerWidgets[tabIdentifier] = TabContainerWidget({actionHolder, tabIndexes, false});
+    }
     makeMarginSpacingZero(actionLayout);
     actionHolder->setLayout(actionLayout);
 
-    containerWidgets[tabIdentifier] = TabContainerWidget({actionHolder, tabIndexes});
     tabIndexes++;
 }
 
@@ -99,7 +107,7 @@ void RibbonToolBar::addRibbonAction(const QString &actionName,
     QWidget *actionHolder = containerData.widget;
     QToolButton *actionButton = new QToolButton(this);
     actionButton->setObjectName(actionIdentifier);
-    actionButton->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    actionButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     actionButton->setIcon(icon);
     actionButton->setText(actionName);
     actionHolder->layout()->addWidget(actionButton);
@@ -110,10 +118,18 @@ void RibbonToolBar::tabSelectionChanged(int index)
 {
     for(TabContainerWidget containerData : containerWidgets) {
         if (containerData.index == index) {
+            if (!containerData.inLayout) {
+                layout1->addWidget(containerData.widget);
+                containerData.inLayout = true;
+            }
             qDebug() << "+ Showing container with index " << index;
             containerData.widget->show();
         } else {
             qDebug() << "- Hiding container with index " << index;
+            if (containerData.inLayout) {
+                layout1->removeWidget(containerData.widget);
+                containerData.inLayout = false;
+            }
             containerData.widget->hide();
         }
     }

@@ -18,6 +18,7 @@ class QBoxLayout;
 typedef struct TabContainerWidget {
     QWidget *widget;
     int index;
+    bool inLayout;
 } TabContainerWidget;
 
 class RibbonToolBar : public QWidget
