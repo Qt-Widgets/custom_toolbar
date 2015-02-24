@@ -15,13 +15,15 @@ TEMPLATE = app
 SOURCES += main.cpp\
         widget.cpp \
     customtoolbar.cpp \
-    ribbontoolbar.cpp
+    ribbontoolbar.cpp \
+    custommainwindow.cpp
 
 HEADERS  += widget.h \
     customtoolbar.h \
-    ribbontoolbar.h
+    ribbontoolbar.h \
+    custommainwindow.h
 
-FORMS    += widget.ui
+FORMS    +=
 
 RESOURCES += \
     icons.qrc

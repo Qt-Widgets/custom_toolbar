@@ -9,10 +9,7 @@
 #include <QDebug>
 #include "customtoolbar.h"
 #include "ribbontoolbar.h"
-
-namespace Ui {
-class Widget;
-}
+#include <QMenuBar>
 
 class Widget : public QWidget
 {
@@ -25,7 +22,6 @@ public:
     ~Widget();
 
 private:
-    Ui::Widget *ui;
     QVBoxLayout *layout1;
     QLabel *textStuff;
     CustomToolBar *customToolBar;

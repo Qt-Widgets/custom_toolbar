@@ -4,13 +4,10 @@
 #include <QTabBar>
 #include <QToolButton>
 
-
 Widget::Widget(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::Widget)
+    QWidget(parent)
 {
     Q_INIT_RESOURCE(icons);
-    ui->setupUi(this);
 
     layout1 = new QVBoxLayout();
     ribbonToolBar = new RibbonToolBar(this);
@@ -66,7 +63,6 @@ void Widget::oldLayoutCode()
 
 Widget::~Widget()
 {
-    delete ui;
 }
 
 void Widget::startGcClicked()
